@@ -8,7 +8,8 @@ namespace ExceptionHandlingDemo.Controllers
     [Route("test")]
     public class HomeController : ControllerBase
     {
-
+        [Route("get")]
+        [HttpGet]
         public string Get()
         {
             return "Hello from Index";

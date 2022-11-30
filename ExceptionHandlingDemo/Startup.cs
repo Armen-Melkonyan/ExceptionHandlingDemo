@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -27,6 +28,12 @@ namespace ExceptionHandlingDemo
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddScoped<ExceptionHandlerOptions>();
+            //services.AddScoped<ILogger>();
+            //services.AddScoped<Func<object, Task>>();
+            //services.AddScoped<DiagnosticListener>();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ExceptionHandlingDemo", Version = "v1" });
@@ -40,6 +47,7 @@ namespace ExceptionHandlingDemo
             {
                 //app.UseExceptionHandler("/error-local-development");
                 app.UseExceptionHandler(err => err.UseCustomErrors(env));
+
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ExceptionHandlingDemo v1"));
             }
